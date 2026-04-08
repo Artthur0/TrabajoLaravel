@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\MusicaController;
+use App\Http\Controllers\JuegosController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/inicio', [InicioController::class, 'VistaInicial']);
-Route::get('/musica', [InicioController::class, 'VistaMusica']);
-Route::get('/juegos', [InicioController::class, 'VistaJuegos']);
+
+Route::get('/', [InicioController::class, 'VistaInicial']);
+Route::get('/musica', [MusicaController::class, 'VistaMusica']);
+Route::get('/juegos', [JuegosController::class, 'VistaJuegos']);

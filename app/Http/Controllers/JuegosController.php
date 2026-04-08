@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class InicioController extends Controller
+class JuegosController extends Controller
 {
-    public function VistaInicial()
+    public function VistaJuegos()
     {
-        return view('layout.Inicio');
+        return view('layout.VistaJuegos');
     }
 }
