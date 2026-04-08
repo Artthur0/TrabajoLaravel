@@ -9,41 +9,44 @@
                 <h1>Musica</h1>
                 <div class="logo"></div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Buscar productos...">
-                    <button>🔍</button>
+                    <form action="{{ route('musica_b') }}" method="get">
+                        <input type="text" name="buscar" placeholder="Buscar por Titulo">
+                        <input type="submit">
+                    </form>
                 </div>
                 <div class="cart-icon" onclick="toggleCart()">
 
                 </div>
             </nav>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <h3>Titulo</h3>
-                    <ul>
-                        @foreach ($Titulo as $item)
-                        <img id="icono" src="https://cdn-icons-png.flaticon.com/128/876/876817.png" alt="">
-                        {{ $item }} <br>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3>Artista</h3>
-                    <ul>
-                        @foreach ($Artista as $item)
-                        {{ $item }} <br>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3>Fecha de creación</h3>
-                    <ul>
-                        @foreach ($Fecha as $item)
-                        {{ $item }} <br>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Titulo</th>
+                        <th>Artista</th>
+                        <th>Fecha de creación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($canciones as $cancion)
+                    <tr>
+                        <td>
+                            🎵
+                        </td>
+                        <td>
+                            {{ $cancion->Titulo }}
+                        </td>
+                        <td>
+                            {{ $cancion->Artista }}
+                        </td>
+                        <td>
+                            {{ $cancion->Fecha }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </section>
 </body>
@@ -59,8 +62,10 @@
 
     .container {
         background-color: #f5f5f5;
-        padding: 20px;
+        padding: 30px;
         border-radius: 10px;
-
+        margin-top: 250px;
+        width: 80%;
+        height: 40%;
     }
 </style>

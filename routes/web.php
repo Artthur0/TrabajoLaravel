@@ -7,5 +7,5 @@ use App\Http\Controllers\JuegosController;
 
 
 Route::get('/', [InicioController::class, 'VistaInicial']);
-Route::get('/musica', [MusicaController::class, 'VistaMusica']);
+Route::get('/musica', [MusicaController::class, 'VistaMusica'])->name('musica_b');
 Route::get('/juegos', [JuegosController::class, 'VistaJuegos']);
