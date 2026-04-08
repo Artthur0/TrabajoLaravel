@@ -16,17 +16,75 @@
 
 <body>
     <header>
-        <nav class="navbar" id="Navbar">
-            <div class="logo"></div>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar productos...">
-                <button>🔍</button>
-            </div>
-            <div class="cart-icon" onclick="toggleCart()">
+        <div class="column">
+            <a href="{{ url('/') }}" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/882/882702.png" alt="">
+            </a>
+            <a href="{{ url('/musica') }}">
+                <img name="icon" src="https://cdn-icons-png.flaticon.com/128/876/876817.png" alt="">
+                <h3>MUSICA</h3>
+            </a>
+            <a href="{{ url('/juegos') }}">
+                <img name="icon" src="https://cdn-icons-png.flaticon.com/128/13516/13516779.png" alt="">
+                <h3>JUEGOS</h3>
+            </a>
 
-            </div>
-        </nav>
+        </div>
+
     </header>
 </body>
 
 </html>
+
+
+<style>
+    .column {
+        background-color: #00008b;
+        display: flex;
+        /* Cambiamos de row a column para que los items bajen */
+        flex-direction: column;
+        /* Alineamos al centro de la columna */
+        align-items: center;
+        padding: 20px 10px;
+
+        /* ESTO ES LO IMPORTANTE: */
+        width: 150px;
+        /* Le damos un ancho fijo */
+        height: 100vh;
+        /* Hacemos que ocupe todo el alto de la pantalla */
+        position: fixed;
+        /* La dejamos fija a la izquierda */
+        left: 0;
+        top: 0;
+    }
+
+    /* Ajuste para los enlaces para que no se vean azules/subrayados */
+    .column a {
+        text-decoration: none;
+        text-align: center;
+        margin-bottom: 20px;
+        /* Espacio entre botones */
+    }
+
+    img[name="icon"] {
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    h3 {
+        font-size: 20px;
+        /* Un poco más pequeño para que quepa bien */
+        background-color: white;
+        color: black;
+        width: 120px;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .logo img {
+        width: 80px;
+        margin-bottom: 30px;
+    }
+</style>

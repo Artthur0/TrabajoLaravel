@@ -9,6 +9,8 @@ class JuegosController extends Controller
 {
     public function VistaJuegos()
     {
-        return view('layout.VistaJuegos');
+        $Juegos = ['Chess', 'Genshin Impact', 'FIFA 2024', 'DokiDoki', 'Minecraft'];
+        return view('layout.VistaJuegos')
+            ->with(['Juegos' => $Juegos]);
     }
 }
