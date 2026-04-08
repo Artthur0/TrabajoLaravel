@@ -7,16 +7,40 @@ use Illuminate\Http\Request;
 
 class MusicaController extends Controller
 {
-    public function VistaMusica()
+    public function VistaMusica(Request $request)
     {
-        $Titulo = ['ReawakeR', 'Amorfoda', 'Phoenix', 'Coqueta', 'Odds Are'];
-        $Artista = ['LiSA, Felix', 'BadBunny', 'LOL', 'Fuerza regida', 'RIELL'];
-        $Fecha = ['2022', '2017', '2022', '2023', '2022'];
-        return view('layout.VistaMusica')
-            ->with([
-                'Titulo' => $Titulo,
-                'Artista' => $Artista,
-                'Fecha' => $Fecha,
-            ]);
+        $buscar = $request->input('buscar');
+        $canciones = [
+            (object) [
+                'Titulo' => 'ReawakeR',
+                'Artista' => 'LiSA, Felix',
+                'Fecha' => '2022',
+            ],
+            (object) [
+                'Titulo' => 'Amorfoda',
+                'Artista' => 'BadBunny',
+                'Fecha' => '2017',
+            ],
+            (object) [
+                'Titulo' => 'Phoenix',
+                'Artista' => 'LOL',
+                'Fecha' => '2022',
+            ],
+            (object) [
+                'Titulo' => 'Coqueta',
+                'Artista' => 'Fuerza regida',
+                'Fecha' => '2023',
+            ],
+            (object) [
+                'Titulo' => 'Odds Are',
+                'Artista' => 'RIELL',
+                'Fecha' => '2022',
+            ],
+        ];
+        if ($buscar)
+            $canciones = array_filter($canciones, function ($cancion) use ($buscar) {
+                return $cancion->Titulo == $buscar;
+            });
+        return view('layout.VistaMusica', compact('canciones',));
     }
 }
