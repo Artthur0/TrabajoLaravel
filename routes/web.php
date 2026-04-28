@@ -20,11 +20,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/juegos', [GameController::class, 'VistaJuegos']);
 
     Route::get('/lares-downloads', [MusicController::class, 'VistaLares'])->name('lares_downloads');
-    Route::post('/lares-downloads/descargar/{id}', [MusicController::class, 'descargar'])->name('descargar');
+    Route::post('/lares-downloads/descargar/{id}', [MusicController::class, 'descargar'])->name('musica.descargar');
 
     Route::get('/musica/biblioteca', [MusicController::class, 'VistaMusica'])->name('mi_musica');
 
-    Route::delete('/musica/eliminar/{id}', [MusicController::class, 'eliminarDeBiblioteca'])->name('eliminar_cancion');
+    Route::delete('/musica/eliminar/{id}', [MusicController::class, 'eliminarDeBiblioteca'])->name('musica.quitar');
     Route::post('/logout', function () {
         Auth::logout();
         return redirect()->route('login_view');
