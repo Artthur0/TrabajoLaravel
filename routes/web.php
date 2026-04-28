@@ -8,14 +8,14 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\AuthController;
 
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login_view');
+Route::get('/', [AuthController::class, 'showLogin'])->name('login_view');
 Route::post('/login', [AuthController::class, 'login'])->name('login_proceso');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register_view');
 Route::post('/register', [AuthController::class, 'register'])->name('register_proceso');
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [IndexController::class, 'VistaInicial'])->name('escritorio');
+    Route::get('/login', [IndexController::class, 'VistaInicial'])->name('escritorio');
     Route::get('/musica', [MusicController::class, 'VistaMusica'])->name('musica_b');
     Route::get('/juegos', [GameController::class, 'VistaJuegos']);
 
