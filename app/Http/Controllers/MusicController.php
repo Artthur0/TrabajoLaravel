@@ -23,7 +23,7 @@ class MusicController extends Controller
         $cantidad = $user->songs()->count();
 
         if ($cantidad >= 3) {
-            return view('musica.disco_lleno'); 
+            return view('layout.PantallaAzul'); 
         }
 
         $user->songs()->syncWithoutDetaching([$id]);

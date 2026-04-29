@@ -6,11 +6,13 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PantallaAzul;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login_view');
 Route::post('/login', [AuthController::class, 'login'])->name('login_proceso');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register_view');
 Route::post('/register', [AuthController::class, 'register'])->name('register_proceso');
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -24,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/lares-downloads/descargar/{id}', [MusicController::class, 'descargar'])->name('musica.descargar');
     Route::get('/musica/biblioteca', [MusicController::class, 'VistaMusica'])->name('musica_d');
     Route::delete('/musica/eliminar/{id}', [MusicController::class, 'eliminarDeBiblioteca'])->name('musica.quitar');
-
+    Route::get('/pantallaA',[PantallaAzul::class, 'PantallaAzul'])->name('pantallaazul');
     Route::post('/logout', function () {
         Auth::logout();
         return redirect()->route('login_view');

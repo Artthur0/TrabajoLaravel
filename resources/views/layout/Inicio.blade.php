@@ -12,7 +12,7 @@
     </a>
 
     <a href="{{ route('paneldecontrol') }}" class="icon-link">
-        <img src="https://cdn-icons-png.flaticon.com/128/13516/13516779.png" alt="Juegos">
+        <img src="{{ asset('img/tuerca.png') }}" alt="Logo" class="paneldecontrol-logo">
         <h3>Panel de Control</h3>
     </a>
 </div>

@@ -90,7 +90,6 @@
         background-color: #F4F7FC;
     }
 
-    /* Efecto de selección azul clásico de Windows */
     .xp-table tbody tr:hover {
         background-color: #316AC5;
         color: white;
