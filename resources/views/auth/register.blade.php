@@ -1,5 +1,3 @@
-@extends('Fondo')
-
 <div class="login-screen">
     <div class="login-container">
         <div class="branding">
@@ -9,7 +7,7 @@
 
         <div class="register-box">
             <div class="avatar-preview">
-                <img src="{{ asset('img/duck.png') }}" alt="User Avatar">
+                <img src="{{ asset('.img/Avatar/PerfilBasico.jfif') }}" alt="User Avatar">
             </div>
 
             <form action="{{ route('register_proceso') }}" method="POST">

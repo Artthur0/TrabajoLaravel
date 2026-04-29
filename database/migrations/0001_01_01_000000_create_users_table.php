@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('avatar')->default('duck.png');
-            $table->string('wallpaper')->default('windows_xp.jpg');
+            $table->string('avatar')->default('PerfilBasico.jfif');
+            $table->string('wallpaper')->default('todoestoeracampo.jpg');
             $table->timestamps();
         });
 
