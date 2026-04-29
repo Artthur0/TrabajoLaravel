@@ -1,7 +1,7 @@
 <section class="login-screen">
     <div class="login-container">
         <div class="branding">
-            <img src="{{ asset('.img/windows.png') }}" alt="Logo" class="windows-logo">
+            <img src="{{ asset('img/windows.png') }}" alt="Logo" class="windows-logo">
             <h1>Wilson XD</h1>
             <p>Para comenzar, haz clic en tu nombre de usuario e ingresa tu contraseña.</p>
         </div>
@@ -9,7 +9,7 @@
         <div class="user-selection">
             @foreach($usuarios as $user)
             <div class="user-card" onclick="selectUser('{{ $user->username }}', this)">
-                <img src="{{ asset('.img/Avatar/' . $user->avatar) }}" alt="Avatar">
+                <img src="{{ asset('img/Avatar/' . $user->avatar) }}" alt="Avatar">
                 <div class="user-info">
                     <span class="username">{{ $user->username }}</span>
 
@@ -242,6 +242,45 @@
 
     .footer-links a:hover {
         text-decoration: underline;
+    }
+
+    /* Ajuste para que la lista de usuarios sea desplazable si hay muchos */
+    .user-selection {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 40px;
+        gap: 15px;
+        max-height: 70vh;
+        /* Limita la altura para que no choque con las franjas azules */
+        overflow-y: auto;
+        /* Activa el scroll si hay muchos usuarios */
+        scrollbar-width: thin;
+        /* Scroll fino para navegadores modernos */
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+
+    /* Estilo para la barra de desplazamiento en Chrome/Safari */
+    .user-selection::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .user-selection::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+    }
+
+    /* IMPORTANTE: Ajuste de las imágenes del avatar */
+    .user-card img {
+        width: 64px;
+        height: 64px;
+        border-radius: 4px;
+        border: 2px solid #fff;
+        object-fit: cover;
+        margin-right: 15px;
+        flex-shrink: 0;
+        /* Evita que la imagen se aplaste */
     }
 </style>
 <script>

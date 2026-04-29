@@ -7,7 +7,7 @@
 
         <div class="register-box">
             <div class="avatar-preview">
-                <img src="{{ asset('.img/Avatar/PerfilBasico.jfif') }}" alt="User Avatar">
+                <img src="{{ asset('img/Avatar/duck.png') }}" alt="User Avatar">
             </div>
 
             <form action="{{ route('register_proceso') }}" method="POST">

@@ -1,67 +1,79 @@
 @extends('Fondo')
 
+@section('content')
 <div class="window-xp">
     <div class="title-bar">
-        <div class="title-bar-text">Panel de control</div>
+        <div class="title-bar-text">Panel de control - Wilson XD</div>
         <div class="title-bar-controls">
-            <button aria-label="Close"></button>
+            {{-- Redirección al escritorio --}}
+            <button aria-label="Close" onclick="window.location.href='{{ route('escritorio') }}'"></button>
         </div>
     </div>
 
     <div class="window-body">
-        <section class="config-section">
-            <h2 class="section-title">Fondo de escritorio</h2>
-            <div class="grid-container">
-                @php
-                $wallpapers = ['kali.jpg', 'luna.jpg', 'todoestoeracampo.jpg', 'windowskiller.jpg'];
-                @endphp
+        <form action="{{ route('guardar_configuracion') }}" method="POST" id="configForm">
+            @csrf
 
-                @foreach($wallpapers as $wall)
-                <form action="{{ route('perfil.actualizar') }}" method="POST" style="display: contents;">
-                    @csrf
-                    <input type="hidden" name="wallpaper" value="{{ $wall }}">
-                    <div class="item-card {{ Auth::user()->wallpaper == $wall ? 'active' : '' }}" onclick="this.parentElement.submit()">
-                        <div class="image-placeholder"
-                            style="background-image: url('{{ asset('.img/Wallpaper/' . $wall) }}');">
-                        </div>
-                        @if(Auth::user()->wallpaper == $wall)
+            {{-- SECCIÓN: FONDO DE ESCRITORIO --}}
+            <section class="config-section">
+                <h2 class="section-title">Fondo de escritorio</h2>
+                <div class="grid-container">
+                    @php
+                    $fondos = ['kali.jpg', 'luna.jpg', 'todoestoeracampo.jpg', 'windowskiller.jpg'];
+                    $currentWallpaper = Auth::user()->wallpaper;
+                    @endphp
+                    @foreach($fondos as $fondo)
+                    <label class="item-card {{ $currentWallpaper == $fondo ? 'active' : '' }}">
+                        <input type="radio" name="wallpaper" value="{{ $fondo }}"
+                            style="display:none;" onchange="this.form.submit()">
+
+                        {{-- Es vital que el div tenga dimensiones en el CSS para que el background-image se vea --}}
+                        <div class="image-placeholder" style="background-image: url('{{ asset('img/Wallpaper/' . $fondo) }}')"></div>
+
+                        @if($currentWallpaper == $fondo)
                         <div class="status-label">Actual</div>
                         @endif
-                    </div>
-                </form>
-                @endforeach
-            </div>
-        </section>
+                    </label>
+                    @endforeach
+                </div>
+            </section>
 
-        <section class="config-section">
-            <h2 class="section-title">Avatar</h2>
-            <div class="grid-container-small">
-                @php
-                $avatars = ['anonymus.png', 'duck.png', 'emo.jpg', 'linux.jpg', 'PerfilBasico.jfif'];
-                @endphp
-
-                @foreach($avatars as $av)
-                <form action="{{ route('perfil.actualizar') }}" method="POST" style="display: contents;">
-                    @csrf
-                    <input type="hidden" name="avatar" value="{{ $av }}">
-                    <div class="item-card-small {{ Auth::user()->avatar == $av ? 'active' : '' }}" onclick="this.parentElement.submit()">
-                        <div class="avatar-placeholder"
-                            style="background-image: url('{{ asset('.img/Avatar/' . $av) }}');">
-                        </div>
-                        @if(Auth::user()->avatar == $av)
+            {{-- SECCIÓN: AVATAR --}}
+            <section class="config-section">
+                <h2 class="section-title">Avatar de usuario</h2>
+                <div class="grid-container-small">
+                    @php
+                    $avatares = ['duck.png', 'anonymus.png', 'emo.jpg', 'linux.jpg', 'PerfilBasico.jfif'];
+                    $currentAvatar = Auth::user()->avatar;
+                    @endphp
+                    @foreach($avatares as $avatar)
+                    <label class="item-card-small {{ $currentAvatar == $avatar ? 'active' : '' }}">
+                        <input type="radio" name="avatar" value="{{ $avatar }}"
+                            style="display:none;" onchange="this.form.submit()">
+                        <img src="{{ asset('img/Avatar/' . $avatar) }}" class="avatar-img-view" alt="Avatar">
+                        @if($currentAvatar == $avatar)
                         <div class="status-label">Actual</div>
                         @endif
-                    </div>
-                </form>
-                @endforeach
-            </div>
-        </section>
+                    </label>
+                    @endforeach
+                </div>
+            </section>
+        </form>
 
         <footer class="window-footer">
             <div class="storage-info">
-                <span>Uso de disco</span>
+                <span>Espacio en disco:</span>
                 <div class="progress-container">
-                    <div class="progress-bar" style="width: 80%;">80 %</div>
+                    @php
+                    // Lógica de seguridad para evitar errores de variable no definida
+                    $user = Auth::user();
+                    $cant = method_exists($user, 'canciones') ? $user->canciones()->count() : 0;
+                    $porcent = ($cant / 3) * 100;
+                    $colorBarra = $porcent >= 100 ? '#FF0000' : '#FF9D3C';
+                    @endphp
+                    <div class="progress-bar" style="width: {{ $porcent }}%; background-color: {{ $colorBarra }};">
+                        {{ round($porcent) }} %
+                    </div>
                 </div>
             </div>
         </footer>
@@ -69,38 +81,13 @@
 </div>
 
 <style>
-    /* Estilos nuevos para interactividad */
-    .item-card,
-    .item-card-small {
-        cursor: pointer;
-        transition: transform 0.1s;
-    }
-
-    .item-card:hover,
-    .item-card-small:hover {
-        transform: scale(1.03);
-        border-color: #0055E5;
-    }
-
-    /* Tus estilos originales */
-    .image-placeholder,
-    .avatar-placeholder {
-        width: 100%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .config-section {
-        margin-bottom: 30px;
-    }
-
     .window-xp {
         width: 850px;
         margin: 20px auto;
         background-color: #ECE9D8;
         border: 3px solid #0055E5;
         border-radius: 8px 8px 0 0;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
         font-family: "Tahoma", sans-serif;
     }
 
@@ -109,20 +96,68 @@
         padding: 4px 10px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         color: white;
         font-weight: bold;
+        text-shadow: 1px 1px #000;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .title-bar-controls button {
+        width: 21px;
+        height: 21px;
+        background-color: #E81123;
+        border: 1px solid #FFF;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .title-bar-controls button::before {
+        content: "X";
+    }
+
+    .window-body {
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 1.1em;
+        color: #333;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ADC6E5;
+        padding-bottom: 5px;
+    }
+
+    .grid-container {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    /* ESTO ES LO QUE HACE QUE SE VEA EL FONDO */
+    .image-placeholder {
+        width: 100%;
+        height: 100px;
+        background-color: #ddd;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid #919B9C;
     }
 
     .item-card {
         border: 1px solid #919B9C;
         background: white;
         padding: 4px;
-        width: 150px;
+        width: 180px;
+        cursor: pointer;
     }
 
     .item-card.active,
     .item-card-small.active {
         border: 2px solid #0055E5;
+        padding: 3px;
+        background: #D7E5F2;
     }
 
     .status-label {
@@ -130,15 +165,13 @@
         color: white;
         text-align: center;
         font-size: 0.85em;
-        padding: 2px;
+        padding: 2px 0;
         margin-top: 4px;
     }
 
-    .grid-container,
     .grid-container-small {
         display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
+        gap: 20px;
     }
 
     .item-card-small {
@@ -146,22 +179,21 @@
         border: 1px solid #919B9C;
         background: white;
         padding: 3px;
+        cursor: pointer;
     }
 
-    .avatar-placeholder {
+    .avatar-img-view {
+        width: 100%;
         height: 70px;
+        object-fit: cover;
+        display: block;
     }
 
-    .image-placeholder {
-        height: 80px;
-    }
-
-    /* Barra de progreso */
+    /* BARRA DE PROGRESO */
     .window-footer {
         display: flex;
         justify-content: flex-end;
         margin-top: 20px;
-        padding-right: 10px;
     }
 
     .storage-info {
@@ -172,17 +204,19 @@
 
     .progress-container {
         width: 200px;
-        height: 20px;
+        height: 25px;
         background: #eee;
         border: 1px solid #848484;
     }
 
     .progress-bar {
         height: 100%;
-        background-color: #FF9D3C;
         text-align: center;
-        line-height: 20px;
-        font-size: 0.8em;
-        color: black;
+        line-height: 25px;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: white;
+        transition: width 0.5s;
     }
 </style>
+@endsection

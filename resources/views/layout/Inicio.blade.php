@@ -1,7 +1,7 @@
 @extends('Fondo')
 
 <div class="desktop-icons">
-    <a href="{{ route('musica_b') }}" class="icon-link">
+    <a href="{{ route('musica_d') }}" class="icon-link">
         <img src="https://cdn-icons-png.flaticon.com/128/876/876817.png" alt="Musica">
         <h3>MI MÚSICA</h3>
     </a>
