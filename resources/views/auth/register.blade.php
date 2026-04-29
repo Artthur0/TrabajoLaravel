@@ -53,7 +53,6 @@
 
     .btn-register {
         background-color: #28a745;
-        /* Botón verde como el de tu diseño */
         color: white;
         border: none;
         padding: 10px 20px;

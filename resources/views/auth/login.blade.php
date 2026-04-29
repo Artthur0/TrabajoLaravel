@@ -42,30 +42,26 @@
         padding: 0;
         height: 100%;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        /* Fuente tipo Windows */
+     
     }
 
     .login-screen {
         width: 100%;
         height: 100vh;
         background-color: #5a7edc;
-        /* El azul medio del fondo */
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    /* Franja Superior e Inferior */
     .login-screen::before,
     .login-screen::after {
         content: '';
         position: absolute;
         width: 100%;
         height: 12%;
-        /* Ajusta el grosor de las franjas */
         background-color: #003399;
-        /* El azul oscuro */
         left: 0;
     }
 
@@ -74,7 +70,6 @@
         border-bottom: 2px solid #fff;
     }
 
-    /* Línea blanca sutil */
     .login-screen::after {
         bottom: 0;
         border-top: 2px solid #fff;
@@ -87,7 +82,6 @@
         z-index: 10;
     }
 
-    /* Sección Izquierda (Logo y Título) */
     .branding {
         flex: 1;
         display: flex;
@@ -98,12 +92,11 @@
         color: white;
         padding-right: 40px;
         border-right: 1px solid rgba(255, 255, 255, 0.3);
-        /* Línea divisoria */
+       
     }
 
     .branding .windows-logo {
         width: 100px;
-        /* Tamaño del logo */
         height: auto;
         margin-bottom: 20px;
     }
@@ -120,8 +113,6 @@
         margin: 0;
         line-height: 1.4;
     }
-
-    /* Sección Derecha (Usuarios) */
     .user-selection {
         flex: 1;
         display: flex;
@@ -129,10 +120,8 @@
         justify-content: center;
         padding-left: 40px;
         gap: 15px;
-        /* Espacio entre tarjetas */
     }
 
-    /* Estilo general de la tarjeta */
     .user-card {
         display: flex;
         align-items: center;
@@ -141,15 +130,12 @@
         cursor: pointer;
         transition: all 0.2s ease-in-out;
         border: 2px solid transparent;
-        /* Para el efecto hover/active */
     }
 
-    /* Efecto al pasar el ratón */
     .user-card:hover {
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Estado Activo (Cuando está seleccionado) */
     .user-card.active {
         background-color: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.5);
@@ -160,7 +146,6 @@
         width: 64px;
         height: 64px;
         border-radius: 4px;
-        /* O '50%' si quieres que sean circulares como en W10 */
         border: 2px solid #fff;
         object-fit: cover;
         margin-right: 15px;
@@ -177,21 +162,17 @@
         margin-bottom: 5px;
     }
 
-    /* Contenedor de contraseña e input */
     .password-wrapper {
         display: flex;
         align-items: center;
         gap: 5px;
         overflow: hidden;
-        /* Para la transición */
         max-height: 0;
-        /* Oculto por defecto */
         transition: max-height 0.3s ease-out;
     }
 
     .user-card.active .password-wrapper {
         max-height: 50px;
-        /* Se expande cuando está activo */
         margin-top: 5px;
     }
 
@@ -203,10 +184,8 @@
         width: 150px;
     }
 
-    /* Botón de envío (La flecha clásica) */
     .btn-login {
         background-color: #4CAF50;
-        /* Verde XP */
         color: white;
         border: none;
         border-radius: 4px;
@@ -225,11 +204,9 @@
         background-color: #5cb85c;
     }
 
-    /* Link Inferior */
     .footer-links {
         position: absolute;
         bottom: 4%;
-        /* Centrado en la franja inferior */
         right: 5%;
         z-index: 10;
     }
@@ -244,7 +221,6 @@
         text-decoration: underline;
     }
 
-    /* Ajuste para que la lista de usuarios sea desplazable si hay muchos */
     .user-selection {
         flex: 1;
         display: flex;
@@ -253,15 +229,11 @@
         padding-left: 40px;
         gap: 15px;
         max-height: 70vh;
-        /* Limita la altura para que no choque con las franjas azules */
         overflow-y: auto;
-        /* Activa el scroll si hay muchos usuarios */
         scrollbar-width: thin;
-        /* Scroll fino para navegadores modernos */
         scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
     }
 
-    /* Estilo para la barra de desplazamiento en Chrome/Safari */
     .user-selection::-webkit-scrollbar {
         width: 6px;
     }
@@ -271,7 +243,6 @@
         border-radius: 10px;
     }
 
-    /* IMPORTANTE: Ajuste de las imágenes del avatar */
     .user-card img {
         width: 64px;
         height: 64px;
@@ -280,7 +251,6 @@
         object-fit: cover;
         margin-right: 15px;
         flex-shrink: 0;
-        /* Evita que la imagen se aplaste */
     }
 </style>
 <script>

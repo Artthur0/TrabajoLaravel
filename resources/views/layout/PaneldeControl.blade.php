@@ -5,7 +5,6 @@
     <div class="title-bar">
         <div class="title-bar-text">Panel de control - Wilson XD</div>
         <div class="title-bar-controls">
-            {{-- Redirección al escritorio --}}
             <button aria-label="Close" onclick="window.location.href='{{ route('escritorio') }}'"></button>
         </div>
     </div>
@@ -19,15 +18,14 @@
                 <h2 class="section-title">Fondo de escritorio</h2>
                 <div class="grid-container">
                     @php
-                    $fondos = ['kali.jpg', 'luna.jpg', 'todoestoeracampo.jpg', 'windowskiller.jpg'];
-                    $currentWallpaper = Auth::user()->wallpaper;
+                        $fondos = ['kali.jpg', 'luna.jpg', 'todoestoeracampo.jpg', 'windowskiller.jpg'];
+                        $currentWallpaper = Auth::user()->wallpaper;
                     @endphp
                     @foreach($fondos as $fondo)
                     <label class="item-card {{ $currentWallpaper == $fondo ? 'active' : '' }}">
                         <input type="radio" name="wallpaper" value="{{ $fondo }}"
-                            style="display:none;" onchange="this.form.submit()">
+                               style="display:none;" onchange="this.form.submit()">
 
-                        {{-- Es vital que el div tenga dimensiones en el CSS para que el background-image se vea --}}
                         <div class="image-placeholder" style="background-image: url('{{ asset('img/Wallpaper/' . $fondo) }}')"></div>
 
                         @if($currentWallpaper == $fondo)
@@ -43,13 +41,13 @@
                 <h2 class="section-title">Avatar de usuario</h2>
                 <div class="grid-container-small">
                     @php
-                    $avatares = ['duck.png', 'anonymus.png', 'emo.jpg', 'linux.jpg', 'PerfilBasico.jfif'];
-                    $currentAvatar = Auth::user()->avatar;
+                        $avatares = ['duck.png', 'anonymus.png', 'emo.jpg', 'linux.jpg', 'PerfilBasico.jfif'];
+                        $currentAvatar = Auth::user()->avatar;
                     @endphp
                     @foreach($avatares as $avatar)
                     <label class="item-card-small {{ $currentAvatar == $avatar ? 'active' : '' }}">
                         <input type="radio" name="avatar" value="{{ $avatar }}"
-                            style="display:none;" onchange="this.form.submit()">
+                               style="display:none;" onchange="this.form.submit()">
                         <img src="{{ asset('img/Avatar/' . $avatar) }}" class="avatar-img-view" alt="Avatar">
                         @if($currentAvatar == $avatar)
                         <div class="status-label">Actual</div>
@@ -62,14 +60,14 @@
 
         <footer class="window-footer">
             <div class="storage-info">
-                <span>Espacio en disco:</span>
+                <span class="storage-text">Uso de disco</span>
                 <div class="progress-container">
                     @php
-                    // Lógica de seguridad para evitar errores de variable no definida
-                    $user = Auth::user();
-                    $cant = method_exists($user, 'canciones') ? $user->canciones()->count() : 0;
-                    $porcent = ($cant / 3) * 100;
-                    $colorBarra = $porcent >= 100 ? '#FF0000' : '#FF9D3C';
+                        $user = Auth::user();
+                        $cant = method_exists($user, 'songs') ? $user->songs()->count() : 0;
+                        $porcent = ($cant / 3) * 100;
+                        // Color naranja/oro de tu imagen, cambia a rojo si llega a 100
+                        $colorBarra = $porcent >= 100 ? '#FF0000' : '#FF9D3C';
                     @endphp
                     <div class="progress-bar" style="width: {{ $porcent }}%; background-color: {{ $colorBarra }};">
                         {{ round($porcent) }} %
@@ -113,13 +111,9 @@
         cursor: pointer;
     }
 
-    .title-bar-controls button::before {
-        content: "X";
-    }
+    .title-bar-controls button::before { content: "X"; }
 
-    .window-body {
-        padding: 20px;
-    }
+    .window-body { padding: 20px; position: relative; }
 
     .section-title {
         font-size: 1.1em;
@@ -129,13 +123,8 @@
         padding-bottom: 5px;
     }
 
-    .grid-container {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 30px;
-    }
+    .grid-container { display: flex; gap: 15px; margin-bottom: 30px; }
 
-    /* ESTO ES LO QUE HACE QUE SE VEA EL FONDO */
     .image-placeholder {
         width: 100%;
         height: 100px;
@@ -153,8 +142,7 @@
         cursor: pointer;
     }
 
-    .item-card.active,
-    .item-card-small.active {
+    .item-card.active, .item-card-small.active {
         border: 2px solid #0055E5;
         padding: 3px;
         background: #D7E5F2;
@@ -169,10 +157,7 @@
         margin-top: 4px;
     }
 
-    .grid-container-small {
-        display: flex;
-        gap: 20px;
-    }
+    .grid-container-small { display: flex; gap: 20px; }
 
     .item-card-small {
         width: 80px;
@@ -189,34 +174,42 @@
         display: block;
     }
 
-    /* BARRA DE PROGRESO */
+    /* POSICIONAMIENTO DE LA BARRA DE DISCO */
     .window-footer {
         display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
+        justify-content: flex-end; /* Mueve todo a la derecha */
+        margin-top: 30px;
+        padding-bottom: 10px;
     }
 
     .storage-info {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+    }
+
+    .storage-text {
+        font-size: 1.1em;
+        color: #333;
     }
 
     .progress-container {
-        width: 200px;
-        height: 25px;
+        width: 250px;
+        height: 28px;
         background: #eee;
         border: 1px solid #848484;
+        box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
     }
 
     .progress-bar {
         height: 100%;
-        text-align: center;
-        line-height: 25px;
-        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1em;
         font-weight: bold;
-        color: white;
-        transition: width 0.5s;
+        color: black;
+        transition: width 0.5s ease-in-out;
     }
 </style>
 @endsection

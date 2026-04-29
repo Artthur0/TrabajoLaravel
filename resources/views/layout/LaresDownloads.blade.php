@@ -79,6 +79,12 @@
         font-size: 12px;
         color: #000;
     }
+    .window-footer {
+        display: flex;
+        justify-content: flex-end; 
+        margin-top: 30px;
+        padding-bottom: 10px;
+    }
 
     .xp-table tbody tr:nth-child(even) {
         background-color: #F4F7FC;
@@ -158,6 +164,23 @@
                 @endforeach
             </tbody>
         </table>
+        <footer class="window-footer">
+            <div class="storage-info">
+                <span class="storage-text">Uso de disco</span>
+                <div class="progress-container">
+                    @php
+                        $user = Auth::user();
+                        $cant = method_exists($user, 'songs') ? $user->songs()->count() : 0;
+                        $porcent = ($cant / 3) * 100;
+                        // Color naranja/oro de tu imagen, cambia a rojo si llega a 100
+                        $colorBarra = $porcent >= 100 ? '#FF0000' : '#FF9D3C';
+                    @endphp
+                    <div class="progress-bar" style="width: {{ $porcent }}%; background-color: {{ $colorBarra }};">
+                        {{ round($porcent) }} %
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 @endsection
