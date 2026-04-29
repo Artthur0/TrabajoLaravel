@@ -11,18 +11,13 @@
         <h3>LARES</h3>
     </a>
 
-    <a href="{{ url('/juegos') }}" class="icon-link">
+    <a href="{{ route('paneldecontrol') }}" class="icon-link">
         <img src="https://cdn-icons-png.flaticon.com/128/13516/13516779.png" alt="Juegos">
-        <h3>JUEGOS</h3>
+        <h3>Panel de Control</h3>
     </a>
 </div>
 
-<div class="taskbar">
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="btn-logout">Cerrar Sesión de {{ Auth::user()->username }}</button>
-    </form>
-</div>
+
 
 <style>
     .desktop-icons {
@@ -56,25 +51,5 @@
         padding: 5px;
         border-radius: 5px;
         text-transform: uppercase;
-    }
-
-    /* Estilo para la barra de tareas inferior */
-    .taskbar {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #333 100%);
-        padding: 10px;
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .btn-logout {
-        background-color: #cc0000;
-        color: white;
-        border: 1px solid white;
-        padding: 5px 15px;
-        cursor: pointer;
-        font-weight: bold;
     }
 </style>

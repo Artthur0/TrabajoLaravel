@@ -14,7 +14,15 @@
     </style>
 </head>
 
-
+<div class="taskbar">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn-logout">Cerrar Sesión de {{ Auth::user()->username }}</button>
+    </form>
+    <form action="{{ route('escritorio') }}" method="GET">
+        <button type="submit" class="btn-inicio">Inicio</button>
+    </form>
+</div>
 
 </html>
 
@@ -68,5 +76,24 @@
     .logo img {
         width: 80px;
         margin-bottom: 30px;
+    }
+
+    .taskbar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #333 100%);
+        padding: 10px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .btn-logout {
+        background-color: #cc0000;
+        color: white;
+        border: 1px solid white;
+        padding: 5px 15px;
+        cursor: pointer;
+        font-weight: bold;
     }
 </style>

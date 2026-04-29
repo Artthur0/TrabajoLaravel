@@ -1,3 +1,4 @@
+@extends('Fondo')
 @foreach($canciones as $c)
 <tr>
     <td>{{ $c->titulo }}</td>

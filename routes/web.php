@@ -17,7 +17,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register_pr
 Route::middleware(['auth'])->group(function () {
     Route::get('/login', [IndexController::class, 'VistaInicial'])->name('escritorio');
     Route::get('/musica', [MusicController::class, 'VistaMusica'])->name('musica_b');
-    Route::get('/juegos', [GameController::class, 'VistaJuegos']);
+    Route::get('/paneldecontrol', [GameController::class, 'PaneldeControl'])->name('paneldecontrol');
 
     Route::get('/lares-downloads', [MusicController::class, 'VistaLares'])->name('lares_downloads');
     Route::post('/lares-downloads/descargar/{id}', [MusicController::class, 'descargar'])->name('musica.descargar');
