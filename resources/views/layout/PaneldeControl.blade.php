@@ -12,29 +12,48 @@
         <section class="config-section">
             <h2 class="section-title">Fondo de escritorio</h2>
             <div class="grid-container">
-                <div class="item-card active">
-                    <div class="image-placeholder bg-bliss"></div>
-                    <div class="status-label">Actual</div>
-                </div>
-                <div class="item-card">
-                    <div class="image-placeholder bg-vista"></div>
-                </div>
-                <div class="item-card">
-                    <div class="image-placeholder bg-tux"></div>
-                </div>
+                @php
+                $wallpapers = ['kali.jpg', 'luna.jpg', 'todoestoeracampo.jpg', 'windowskiller.jpg'];
+                @endphp
+
+                @foreach($wallpapers as $wall)
+                <form action="{{ route('perfil.actualizar') }}" method="POST" style="display: contents;">
+                    @csrf
+                    <input type="hidden" name="wallpaper" value="{{ $wall }}">
+                    <div class="item-card {{ Auth::user()->wallpaper == $wall ? 'active' : '' }}" onclick="this.parentElement.submit()">
+                        <div class="image-placeholder"
+                            style="background-image: url('{{ asset('.img/Wallpaper/' . $wall) }}');">
+                        </div>
+                        @if(Auth::user()->wallpaper == $wall)
+                        <div class="status-label">Actual</div>
+                        @endif
+                    </div>
+                </form>
+                @endforeach
             </div>
         </section>
 
         <section class="config-section">
             <h2 class="section-title">Avatar</h2>
             <div class="grid-container-small">
-                <div class="item-card-small">
-                    <div class="avatar-placeholder msn-logo"></div>
-                </div>
-                <div class="item-card-small active">
-                    <div class="avatar-placeholder duck-logo"></div>
-                    <div class="status-label">Actual</div>
-                </div>
+                @php
+                $avatars = ['anonymus.png', 'duck.png', 'emo.jpg', 'linux.jpg', 'PerfilBasico.jfif'];
+                @endphp
+
+                @foreach($avatars as $av)
+                <form action="{{ route('perfil.actualizar') }}" method="POST" style="display: contents;">
+                    @csrf
+                    <input type="hidden" name="avatar" value="{{ $av }}">
+                    <div class="item-card-small {{ Auth::user()->avatar == $av ? 'active' : '' }}" onclick="this.parentElement.submit()">
+                        <div class="avatar-placeholder"
+                            style="background-image: url('{{ asset('.img/Avatar/' . $av) }}');">
+                        </div>
+                        @if(Auth::user()->avatar == $av)
+                        <div class="status-label">Actual</div>
+                        @endif
+                    </div>
+                </form>
+                @endforeach
             </div>
         </section>
 
@@ -50,13 +69,38 @@
 </div>
 
 <style>
+    /* Estilos nuevos para interactividad */
+    .item-card,
+    .item-card-small {
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+
+    .item-card:hover,
+    .item-card-small:hover {
+        transform: scale(1.03);
+        border-color: #0055E5;
+    }
+
+    /* Tus estilos originales */
+    .image-placeholder,
+    .avatar-placeholder {
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .config-section {
+        margin-bottom: 30px;
+    }
+
     .window-xp {
         width: 850px;
         margin: 20px auto;
         background-color: #ECE9D8;
         border: 3px solid #0055E5;
         border-radius: 8px 8px 0 0;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
         font-family: "Tahoma", sans-serif;
     }
 
@@ -65,62 +109,20 @@
         padding: 4px 10px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
         color: white;
         font-weight: bold;
-        text-shadow: 1px 1px #000;
-        border-radius: 5px 5px 0 0;
-    }
-
-    .title-bar-controls button {
-        width: 21px;
-        height: 21px;
-        background-color: #E81123;
-        border: 1px solid #FFF;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .title-bar-controls button::before {
-        content: "X";
-    }
-
-    .window-body {
-        padding: 20px;
-    }
-
-    .section-title {
-        font-size: 1.1em;
-        color: #333;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ADC6E5;
-        padding-bottom: 5px;
-    }
-
-    .grid-container {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 30px;
     }
 
     .item-card {
         border: 1px solid #919B9C;
         background: white;
         padding: 4px;
-        width: 180px;
+        width: 150px;
     }
 
-    .item-card.active {
+    .item-card.active,
+    .item-card-small.active {
         border: 2px solid #0055E5;
-        padding: 3px;
-    }
-
-    .image-placeholder {
-        width: 100%;
-        height: 100px;
-        background-color: #ddd;
-        background-size: cover;
     }
 
     .status-label {
@@ -128,13 +130,15 @@
         color: white;
         text-align: center;
         font-size: 0.85em;
-        padding: 4px 0;
+        padding: 2px;
         margin-top: 4px;
     }
 
+    .grid-container,
     .grid-container-small {
         display: flex;
-        gap: 20px;
+        gap: 15px;
+        flex-wrap: wrap;
     }
 
     .item-card-small {
@@ -144,21 +148,20 @@
         padding: 3px;
     }
 
-    .item-card-small.active {
-        border: 2px solid #0055E5;
-        padding: 2px;
-    }
-
     .avatar-placeholder {
-        width: 100%;
         height: 70px;
-        background-color: #eee;
     }
 
+    .image-placeholder {
+        height: 80px;
+    }
+
+    /* Barra de progreso */
     .window-footer {
         display: flex;
         justify-content: flex-end;
         margin-top: 20px;
+        padding-right: 10px;
     }
 
     .storage-info {
@@ -169,7 +172,7 @@
 
     .progress-container {
         width: 200px;
-        height: 25px;
+        height: 20px;
         background: #eee;
         border: 1px solid #848484;
     }
@@ -178,20 +181,8 @@
         height: 100%;
         background-color: #FF9D3C;
         text-align: center;
-        line-height: 25px;
-        font-size: 0.9em;
-        font-weight: bold;
-    }
-
-    .bg-bliss {
-        background-color: #4A7729;
-    }
-
-    .bg-vista {
-        background-color: #1a5c5c;
-    }
-
-    .bg-tux {
-        background-color: #000;
+        line-height: 20px;
+        font-size: 0.8em;
+        color: black;
     }
 </style>

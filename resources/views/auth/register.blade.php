@@ -33,10 +33,8 @@
 </div>
 
 <style>
-    /* Estilos para que se parezca a tu captura de Wilson XD */
     .login-screen {
         background-color: #3b66c4;
-        /* El azul de tu imagen */
         height: 100vh;
         display: flex;
         justify-content: center;

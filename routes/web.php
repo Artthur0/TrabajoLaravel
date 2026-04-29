@@ -12,7 +12,7 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login_view');
 Route::post('/login', [AuthController::class, 'login'])->name('login_proceso');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register_view');
 Route::post('/register', [AuthController::class, 'register'])->name('register_proceso');
-
+Route::post('/perfil/actualizar', [AuthController::class, 'actualizarPerfil'])->name('perfil.actualizar');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/login', [IndexController::class, 'VistaInicial'])->name('escritorio');
